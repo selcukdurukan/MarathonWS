@@ -14,22 +14,21 @@ public class RunProgram {
 	private static List<FullTimeWorkers> fulltimeList = new ArrayList<>();
 
 	public static void main(String[] args) {
-		
+
 		FullTimeWorkers w = new FullTimeWorkers("Bake", "Cooper", 2005, 05, 01, 2012, 06, 12, 15000);
 		FullTimeWorkers w1 = new FullTimeWorkers("Aimothy", "Cunningham", 2000, 10, 12, 2022, 02, 12, 5000);
 		FullTimeWorkers w2 = new FullTimeWorkers("Ctella", "Benedict", 2015, 03, 29, 2018, 11, 25, 10000);
 		fulltimeList.add(w);
 		fulltimeList.add(w1);
 		fulltimeList.add(w2);
-		
-		
-		HourslyWorkers w3 = new HourslyWorkers("Jane","Adams", 2007,8, 25, 2001, 01, 10, 150, 160);
-		HourslyWorkers w4 = new HourslyWorkers("Ali","Cemal", 2005, 07, 10, 2011, 9, 12, 50, 80);
-		HourslyWorkers w5 = new HourslyWorkers("John","Daniel", 2003, 10, 10, 2020, 01, 01, 100, 10);
+
+		HourslyWorkers w3 = new HourslyWorkers("Jane", "Adams", 2007, 8, 25, 2001, 01, 10, 150, 160);
+		HourslyWorkers w4 = new HourslyWorkers("Ali", "Cemal", 2005, 07, 10, 2011, 9, 12, 50, 80);
+		HourslyWorkers w5 = new HourslyWorkers("John", "Daniel", 2003, 10, 10, 2020, 01, 01, 100, 10);
 		hourslyList.add(w3);
 		hourslyList.add(w4);
 		hourslyList.add(w5);
-		
+
 		while (true) {
 			System.out.println("\t\t//////////////////////////////////");
 			System.out.println("\t\t////PERSONEL MANAGEMENT SYSTEM////");
@@ -43,7 +42,6 @@ public class RunProgram {
 			Scanner sc = new Scanner(System.in);
 			int input = sc.nextInt();
 
-			
 			switch (input) {
 			case 1:
 				addEmployee();
@@ -64,12 +62,14 @@ public class RunProgram {
 			}
 		}
 	}
+
 	private static void addEmployee() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Which person would you create? (Please push 1 to create hourly or push 2 to create full-time): ");
+		System.out.print(
+				"Which person would you create? (Please push 1 to create hourly or push 2 to create full-time): ");
 		int input = sc.nextInt();
 		sc.nextLine();
-		if (input==1) {
+		if (input == 1) {
 			System.out.print("Please write her/his first name: ");
 			String firstName = sc.nextLine();
 			System.out.print("Please write her/his last name: ");
@@ -90,9 +90,10 @@ public class RunProgram {
 			double salary = sc.nextDouble();
 			System.out.print("Please write her/his worling hours: ");
 			int hours = sc.nextInt();
-			hourslyList.add(new HourslyWorkers(firstName, lastNamename, startingYear, startingMonth, startingDay, finishingYear, finishingMonth, finishingDay, salary, hours));
-			
-		} else if (input==2){
+			hourslyList.add(new HourslyWorkers(firstName, lastNamename, startingYear, startingMonth, startingDay,
+					finishingYear, finishingMonth, finishingDay, salary, hours));
+
+		} else if (input == 2) {
 			System.out.print("Please write her/his first name: ");
 			String firstName = sc.nextLine();
 			System.out.print("Please write her/his last name: ");
@@ -111,48 +112,52 @@ public class RunProgram {
 			int finishingDay = sc.nextInt();
 			System.out.print("Please write her/his monthly salary: ");
 			double salary = sc.nextDouble();
-			fulltimeList.add(new FullTimeWorkers(firstName, lastNamename, startingYear, startingMonth, startingDay, finishingYear, finishingMonth, finishingDay, salary));
+			fulltimeList.add(new FullTimeWorkers(firstName, lastNamename, startingYear, startingMonth, startingDay,
+					finishingYear, finishingMonth, finishingDay, salary));
 		} else {
 			System.out.println("You should have pushed 1 or 2 to create new employee.");
 		}
 	}
+
 	private static void lookSalary() {
 		try {
 			Scanner sc = new Scanner(System.in);
 			System.out.print("What time do you wanna see payroll? Please write date (yyyy-MM-dd): ");
 			String inputDate = sc.next();
 			LocalDate input = formatDate(inputDate);
-			
+
 			fulltimeList.stream().filter(d -> ChronoUnit.DAYS.between(d.starting(), input) > 0)
-			.filter(d -> ChronoUnit.DAYS.between(d.finishing(), input) < 0)
-			.forEach(d -> System.out.println(" " + d.getName() + " " + d.getLastname() + " : "+  d.getSalary()));
-			
+					.filter(d -> ChronoUnit.DAYS.between(d.finishing(), input) < 0).forEach(
+							d -> System.out.println(" " + d.getName() + " " + d.getLastname() + " : " + d.getSalary()));
+
 			hourslyList.stream().filter(d -> ChronoUnit.DAYS.between(d.starting(), input) > 0)
-			.filter(d -> ChronoUnit.DAYS.between(d.finishing(), input) < 0)
-			.forEach(d -> System.out.println(" " + d.getName() + " " + d.getLastname() + " : "+  d.getSalary()));
+					.filter(d -> ChronoUnit.DAYS.between(d.finishing(), input) < 0).forEach(
+							d -> System.out.println(" " + d.getName() + " " + d.getLastname() + " : " + d.getSalary()));
 		} catch (Exception e) {
 			System.out.println("There is no person in this date.");
 		}
 	}
+
 	private static LocalDate formatDate(String date) {
 		LocalDate d = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
 		return d;
 	}
+
 	private static void lookEmployee() {
-		
+
 		Scanner sc = new Scanner(System.in);
 		System.out.println("\t1)to sort using name \n\t2)to sort using starting date \n\t4)to sort using ID");
 		int input = sc.nextInt();
 		if (input == 1) {
 			Collections.sort(fulltimeList, new SortingName());
 			Collections.sort(hourslyList, new SortingName());
-		} else if (input == 2){
+		} else if (input == 2) {
 			Collections.sort(fulltimeList, new SortingStartingDate());
 			Collections.sort(hourslyList, new SortingStartingDate());
-		}else if (input==3) {
+		} else if (input == 3) {
 			Collections.sort(fulltimeList, new SortingID());
 			Collections.sort(hourslyList, new SortingID());
-		}else {
+		} else {
 			System.out.println("Something going wrong...");
 		}
 		sc.nextLine();
@@ -160,9 +165,9 @@ public class RunProgram {
 			System.out.println(fullTimeWorkers);
 		}
 		for (HourslyWorkers hours : hourslyList) {
-		System.out.println(hours);
-	}
-		
+			System.out.println(hours);
+		}
+
 	}
 
 }

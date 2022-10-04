@@ -15,20 +15,20 @@ public abstract class Workers {
 	private int finishingDay;
 	Occupation job;
 	static int counter = 0;
-	int a=0;
+	int a = 0;
 	String b = "";
-	
+
 	String recordNumber() {
 		if (counter == 9999) {
-			counter=0;
+			counter = 0;
 		}
-		if (this.a>0) {
+		if (this.a > 0) {
 			return b;
 		}
 		String number = String.format("%04d", ++counter);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
 		this.a++;
-		return this.b =starting().format(formatter) +  " / " + number;
+		return this.b = starting().format(formatter) + " / " + number;
 	}
 
 	LocalDate starting() {
@@ -54,7 +54,6 @@ public abstract class Workers {
 		this.finishingDay = finishingDay;
 		this.job = job;
 	}
-
 
 	public String getName() {
 		return name;
@@ -138,8 +137,8 @@ public abstract class Workers {
 
 	@Override
 	public String toString() {
-		return "Workers [name=" + name + ", lastname=" + lastname + ", startingDate=" + starting()
-				+", finishingDate=" + finishing() + ", job=" + job + ", ID=" + recordNumber() + "]";
+		return "Workers [name=" + name + ", lastname=" + lastname + ", startingDate=" + starting() + ", finishingDate="
+				+ finishing() + ", job=" + job + ", ID=" + recordNumber() + "]";
 	}
-    
+
 }
