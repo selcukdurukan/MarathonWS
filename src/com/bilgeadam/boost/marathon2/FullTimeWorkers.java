@@ -4,11 +4,12 @@ public class FullTimeWorkers extends Workers {
 
 	private double salary;
 	double a;
-
+ 
 	public double getSalary() {
 		return salary;
 	}
-
+ 
+	
 	public double setSalary() {
 		a++;
 		if (a > 1) {
